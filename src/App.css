@@ -1,0 +1,105 @@
+body {
+  font-family: sans-serif;
+  padding: 1em;
+}
+
+.ais-SearchBox {
+  margin: 1em 0;
+}
+
+.ais-SearchBox-input {
+  font-size: 3rem;
+  border-radius: 10px;
+  padding: 1rem 0.5rem;
+  color: #292929;
+}
+@media screen and (max-width: 768px) {
+  .ais-SearchBox-input {
+    font-size: 1.3rem;
+  }
+}
+@media screen and (max-width: 576px) {
+  .ais-SearchBox-input {
+    font-size: 1.1rem;
+  }
+}
+
+.ais-SearchBox-submit {
+  display: none;
+}
+
+.ais-SearchBox-reset {
+  width: 35px;
+  height: 35px;
+  margin-right: 1rem;
+}
+
+.ais-SearchBox-resetIcon {
+  width: 25px;
+  height: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .ais-SearchBox-resetIcon {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.ais-Pagination {
+  margin-top: 1em;
+}
+
+.left-panel {
+  float: left;
+  width: 250px;
+}
+
+.right-panel {
+  margin-left: 260px;
+}
+
+.ais-InstantSearch {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.ais-Hits-list {
+  margin: 0px;
+  justify-content: space-around;
+}
+
+.ais-Hits-item {
+  margin: 0.5rem;
+  padding: 0px;
+  border: none;
+  box-shadow: none;
+  width: auto;
+}
+
+.ais-Hits-item img {
+  margin-right: 1em;
+}
+
+.hit-name {
+  margin-bottom: 0.5em;
+}
+
+.hit-title span,
+.hit-title .ais-Highlight-highlighted {
+  font-size: 1.5rem;
+}
+
+.hit-description {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 0.5em;
+}
+
+.ais-HierarchicalMenu-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
