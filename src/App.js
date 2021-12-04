@@ -3,7 +3,9 @@ import React from 'react';
 import {
   InstantSearch,
   Index,
+  InfiniteHits,
   Hits,
+  Snippet,
   Configure,
   SearchBox,
   Pagination,
@@ -56,7 +58,7 @@ export default function App() {
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={10} xl={11}>
                 <Configure hitsPerPage={9} />
-                <Hits hitComponent={Hit} />
+                <InfiniteHits hitComponent={Hit} />
                 <Pagination />
               </Grid>
             </Grid>
@@ -135,7 +137,7 @@ function Hit(props) {
           <Highlight attribute="title" hit={props.hit} />
         </div>
         <div className="hit-description">
-          <Highlight attribute="text" hit={props.hit} />
+          <Snippet attribute="text" hit={props.hit} />
         </div>
         <div className="hit-pagetype">{props.hit.pageType}</div>
         <div className="hit-pagepublicationdate">

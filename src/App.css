@@ -66,12 +66,12 @@ body {
   padding: 1em;
 }
 
-.ais-Hits-list {
+.ais-InfiniteHits-list {
   margin: 0px;
   justify-content: space-around;
 }
 
-.ais-Hits-item {
+.ais-InfiniteHits-item {
   margin: 0.5rem;
   padding: 0px;
   border: none;
@@ -79,7 +79,7 @@ body {
   width: auto;
 }
 
-.ais-Hits-item img {
+.ais-InfiniteHits-item img {
   margin-right: 1em;
 }
 
