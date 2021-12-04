@@ -4,14 +4,14 @@ import {
   InstantSearch,
   Index,
   InfiniteHits,
-  Hits,
   Snippet,
   Configure,
   SearchBox,
-  Pagination,
   Highlight,
   HierarchicalMenu,
+  ClearRefinements,
   RefinementList,
+  Stats,
 } from 'react-instantsearch-dom';
 import './App.css';
 
@@ -22,7 +22,6 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 
 const searchClient = algoliasearch(
   'CSDBX0SZMQ',
@@ -30,10 +29,6 @@ const searchClient = algoliasearch(
 );
 
 export default function App() {
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   return (
     <div className="ais-InstantSearch">
       <p>
@@ -52,14 +47,26 @@ export default function App() {
         <Index indexName="crawler_TG_All">
           <Box sx={{ flexGrow: 2 }}>
             <Grid container spacing={0}>
-              <Grid item xs={12} sm={12} md={3} lg={2} xl={1}>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                <Stats />
+              </Grid>
+              <Grid item xs={12} sm={12} md={3} lg={3} xl={2}>
                 <Categories />
                 <ContentTypes />
+                <ClearRefinements
+                  translations={{
+                    reset: 'Verwijder alle filters',
+                  }}
+                />
               </Grid>
-              <Grid item xs={12} sm={12} md={9} lg={10} xl={11}>
-                <Configure hitsPerPage={9} />
-                <InfiniteHits hitComponent={Hit} />
-                <Pagination />
+              <Grid item xs={12} sm={12} md={9} lg={9} xl={10}>
+                <Configure hitsPerPage={10} />
+                <InfiniteHits
+                  hitComponent={Hit}
+                  translations={{
+                    loadMore: 'Laad meer resultaten',
+                  }}
+                />
               </Grid>
             </Grid>
           </Box>
@@ -145,7 +152,7 @@ function Hit(props) {
         </div>
       </CardContent>
       <CardActions>
-        <a href={props.hit.url} target="_blank">
+        <a href={props.hit.url} target="_blank" rel="noreferrer">
           {props.hit.url}
         </a>
       </CardActions>
