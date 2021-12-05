@@ -12,6 +12,7 @@ import {
   ClearRefinements,
   RefinementList,
   Stats,
+  connectStateResults,
 } from 'react-instantsearch-dom';
 import './App.css';
 
@@ -23,9 +24,30 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-const searchClient = algoliasearch(
+const algoliaClient = algoliasearch(
   'CSDBX0SZMQ',
   '4bfa904cde10c4036e72bb5ad6a698d4'
+);
+
+const searchClient = {
+  ...algoliaClient,
+  search(requests) {
+    if (requests.every(({ params }) => !params.query)) {
+      // Here we have to do something else
+      console.log('empty search request?');
+    }
+
+    return algoliaClient.search(requests);
+  },
+};
+
+const Results = connectStateResults(
+  ({ searchState, searchResults, children }) =>
+    searchResults && searchResults.nbHits !== 0 ? (
+      children
+    ) : (
+      <div>Er werden geen resultaten gevonden voor {searchState.query}.</div>
+    )
 );
 
 export default function App() {
@@ -35,7 +57,7 @@ export default function App() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt
         tellus lorem, sed porttitor neque gravida vitae.
       </p>
-      <InstantSearch indexName="crawler_TG_All" searchClient={searchClient}>
+      <InstantSearch searchClient={searchClient} indexName="crawler_TG_All">
         <SearchBox
           autoFocus
           translations={{
@@ -46,7 +68,7 @@ export default function App() {
         />
         <Index indexName="crawler_TG_All">
           <Box sx={{ flexGrow: 2 }}>
-            <Grid container spacing={0}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <Stats />
               </Grid>
@@ -61,12 +83,14 @@ export default function App() {
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={9} xl={10}>
                 <Configure hitsPerPage={10} />
-                <InfiniteHits
-                  hitComponent={Hit}
-                  translations={{
-                    loadMore: 'Laad meer resultaten',
-                  }}
-                />
+                <Results>
+                  <InfiniteHits
+                    hitComponent={Hit}
+                    translations={{
+                      loadMore: 'Laad meer resultaten',
+                    }}
+                  />
+                </Results>
               </Grid>
             </Grid>
           </Box>
@@ -88,6 +112,7 @@ function Categories(props) {
         borderRadius: 2,
         bgcolor: '#f2f2f2',
         border: 'none',
+        margin: '10px 0',
       }}
       variant="outlined"
     >
@@ -111,6 +136,7 @@ function ContentTypes(props) {
         borderRadius: 2,
         bgcolor: '#f2f2f2',
         border: 'none',
+        margin: '10px 0',
       }}
       variant="outlined"
     >

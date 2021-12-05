@@ -79,6 +79,12 @@ body {
   width: auto;
 }
 
+@media screen and (max-width: 768px) {
+  .ais-InfiniteHits-item {
+    margin: 10px 0;
+  }
+}
+
 .ais-InfiniteHits-item img {
   margin-right: 1em;
 }
@@ -102,4 +108,9 @@ body {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+.ais-InfiniteHits-loadMore {
+  margin: 50px auto;
+  display: block;
 }
