@@ -3,13 +3,15 @@ body {
   padding: 1em;
 }
 
+// TO DO visibility of this part does not work yet!
+/*
 .TA-SearchResults {
   display: inherit;
 }
 .invisible {
-  display: inherit;
-  /* display: none; */
+  display: none;
 }
+*/
 
 .ais-SearchBox {
   margin: 1em 0;
@@ -23,12 +25,12 @@ body {
 }
 @media screen and (max-width: 768px) {
   .ais-SearchBox-input {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 }
 @media screen and (max-width: 576px) {
   .ais-SearchBox-input {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -76,7 +78,8 @@ body {
 
 .ais-InfiniteHits-list {
   margin: 0px;
-  justify-content: space-around;
+  justify-content: flex-start;
+  gap: 40px 40px;
 }
 
 .ais-InfiniteHits-item {
@@ -153,4 +156,61 @@ body {
 .ais-InfiniteHits-loadMore {
   margin: 50px auto;
   display: block;
+}
+
+/* button css copied from https://mui.com/components/buttons/ to try and match material design*/
+.ais-ClearRefinements-button,
+.ais-InfiniteHits-loadMore {
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-tap-highlight-color: transparent;
+  align-items: center;
+  appearance: none;
+  background-color: #1976d2;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0 2px 2px 0,
+    rgba(0, 0, 0, 0.12) 0 1px 5px 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: hand;
+  display: inline-flex;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  justify-content: center;
+  letter-spacing: 0.02857em;
+  line-height: 1.75;
+  margin: 0;
+  min-width: 64px;
+  outline: 0;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  user-select: none;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.ais-ClearRefinements-button:hover {
+  text-decoration: none;
+  background-color: rgba(25, 118, 210, 0.04);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.ais-ClearRefinements-button--disabled {
+  color: rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.ais-InfiniteHits-loadMore {
+  width: 200px;
+  margin: 40px auto;
 }

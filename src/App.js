@@ -37,10 +37,6 @@ const searchClient = {
   search(requests) {
     if (requests.every(({ params }) => !params.query)) {
       // based on https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/react/
-      // I can not get this to work
-      this.setState(({ searchResultsvisible }) => ({
-        searchResultsvisible: false,
-      }));
       return Promise.resolve({
         results: requests.map(() => ({
           hits: [],
@@ -131,7 +127,6 @@ function Categories(props) {
       variant="outlined"
     >
       <CardContent>
-        <Typography variant="h5">Categorieën</Typography>
         <HierarchicalMenu attributes={['categories.lvl0', 'categories.lvl1']} />
       </CardContent>
     </Card>
@@ -155,7 +150,6 @@ function ContentTypes(props) {
       variant="outlined"
     >
       <CardContent>
-        <Typography variant="h5">Type</Typography>
         <RefinementList attribute="pageType" />
       </CardContent>
     </Card>
