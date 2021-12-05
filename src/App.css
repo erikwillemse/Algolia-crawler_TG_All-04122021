@@ -3,6 +3,14 @@ body {
   padding: 1em;
 }
 
+.TA-SearchResults {
+  display: inherit;
+}
+.invisible {
+  display: inherit;
+  /* display: none; */
+}
+
 .ais-SearchBox {
   margin: 1em 0;
 }
@@ -93,15 +101,47 @@ body {
   margin-bottom: 0.5em;
 }
 
+.hit-pagetype {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding: 0.5em 1em;
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hit-pagepublicationdate {
+  padding: 0 0 10px 0;
+  font-size: 12px;
+  color: #303030;
+}
+
+.hit-title span {
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
 .hit-title span,
 .hit-title .ais-Highlight-highlighted {
-  font-size: 1.5rem;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .hit-description {
-  color: #888;
+  color: #4a4a4a;
   font-size: 14px;
-  margin-bottom: 0.5em;
+  margin: 0.75em 0;
+}
+
+.ais-Highlight-highlighted,
+.ais-Snippet-highlighted {
+  background-color: #eb850d;
+  color: #fff;
 }
 
 .ais-HierarchicalMenu-list {

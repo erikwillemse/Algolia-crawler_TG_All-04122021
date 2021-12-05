@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   InstantSearch,
   Index,
@@ -17,11 +17,13 @@ import {
 import './App.css';
 
 import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
 import CardMedia from '@mui/material/CardMedia';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const algoliaClient = algoliasearch(
@@ -29,14 +31,26 @@ const algoliaClient = algoliasearch(
   '4bfa904cde10c4036e72bb5ad6a698d4'
 );
 
+// detecting empty search results
 const searchClient = {
   ...algoliaClient,
   search(requests) {
     if (requests.every(({ params }) => !params.query)) {
-      // Here we have to do something else
-      console.log('empty search request?');
+      // based on https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/react/
+      // I can not get this to work
+      this.setState(({ searchResultsvisible }) => ({
+        searchResultsvisible: false,
+      }));
+      return Promise.resolve({
+        results: requests.map(() => ({
+          hits: [],
+          nbHits: 0,
+          nbPages: 0,
+          page: 0,
+          processingTimeMS: 0,
+        })),
+      });
     }
-
     return algoliaClient.search(requests);
   },
 };
@@ -67,7 +81,7 @@ export default function App() {
           }}
         />
         <Index indexName="crawler_TG_All">
-          <Box sx={{ flexGrow: 2 }}>
+          <Box sx={{ flexGrow: 2 }} className={ShowSearchresults()}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <Stats />
@@ -159,29 +173,42 @@ function Hit(props) {
         },
       }}
     >
-      <CardMedia
-        component="img"
-        height="240"
-        image={props.hit.image}
-        alt={props.hit.name}
-      />
-      <CardContent>
-        <div className="hit-title">
-          <Highlight attribute="title" hit={props.hit} />
-        </div>
-        <div className="hit-description">
-          <Snippet attribute="text" hit={props.hit} />
-        </div>
-        <div className="hit-pagetype">{props.hit.pageType}</div>
-        <div className="hit-pagepublicationdate">
-          {props.hit.pagePublicationDate}
-        </div>
-      </CardContent>
+      <CardActionArea href={props.hit.url} target="_blank">
+        <CardMedia
+          component="img"
+          height="240"
+          image={props.hit.image}
+          alt={props.hit.name}
+        />
+        <CardContent>
+          <div className="hit-pagepublicationdate">
+            {props.hit.pagePublicationDate}
+          </div>
+          <div className="hit-title">
+            <Highlight attribute="title" hit={props.hit} />
+          </div>
+          <div className="hit-description">
+            <Snippet attribute="text" hit={props.hit} />
+          </div>
+          <div className="hit-pagetype">{props.hit.pageType}</div>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
-        <a href={props.hit.url} target="_blank" rel="noreferrer">
-          {props.hit.url}
-        </a>
+        <Button variant="text" href={props.hit.url} target="_blank">
+          Meer
+        </Button>
       </CardActions>
     </Card>
   );
+}
+
+function ShowSearchresults(props) {
+  // I can not get this to work
+  const [searchResultsvisible] = useState(false);
+  if ({ searchResultsvisible } === true) {
+    console.log('searchResultsvisible = true? -> ' + searchResultsvisible);
+    return 'TA-SearchResults';
+  }
+  console.log('searchResultsvisible = false? -> ' + searchResultsvisible);
+  return 'TA-SearchResults invisible';
 }
