@@ -170,7 +170,7 @@ function Hit(props) {
       <CardActionArea href={props.hit.url} target="_blank">
         <CardMedia
           component="img"
-          height="240"
+          height="200"
           image={props.hit.image}
           alt={props.hit.name}
         />
