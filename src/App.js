@@ -92,7 +92,7 @@ export default function App() {
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={9} lg={9} xl={10}>
-                <Configure hitsPerPage={10} />
+                <Configure hitsPerPage={10} facetingAfterDistinct={true} />
                 <Results>
                   <InfiniteHits
                     hitComponent={Hit}
